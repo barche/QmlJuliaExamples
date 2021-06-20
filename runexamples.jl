@@ -35,7 +35,7 @@ cd(mydir) do
       outstr = String(take!(outbuf))
       errlines = join(filter(line -> !contains(line, renderstring), split(errstr, r"[\r\n]+")), "\n")
       if !rendered || !isempty(errlines)
-        @error "Example $fname errored with output:\n$outstr\nand error:\n$errlines"
+        throw(ErrorException("Example $fname errored with output:\n$outstr\nand error:\n$errlines"))
       elseif isempty(outstr)
         println("Example $fname finished")
       else
