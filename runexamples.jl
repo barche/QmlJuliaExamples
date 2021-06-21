@@ -9,7 +9,9 @@ const renderstring = "Frame rendered"
 function errorfilter(line)
   return !contains(line, renderstring) &&
     !contains(line, "Unable to create basic Accelerated OpenGL renderer") &&
-    !contains(line, "Core Image is now using the software OpenGL renderer")
+    !contains(line, "Core Image is now using the software OpenGL renderer") &&
+    !contains(line, "libEGL") &&
+    !contains(line, "Info:")
 end
 
 cd(mydir) do
