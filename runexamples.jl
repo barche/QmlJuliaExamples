@@ -34,7 +34,7 @@ cd(mydir) do
         current_time += timestep
         errstr *= String(take!(errbuf))
         rendered = contains(errstr, renderstring)
-        if current_time >= 100.0 || rendered
+        if current_time >= 300.0 || rendered
           sleep(0.5)
           kill(testproc)
           break
