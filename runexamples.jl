@@ -6,6 +6,12 @@ ENV["QT_LOGGING_RULES"] = "qt.scenegraph.time.renderloop=true;"
 
 const renderstring = "Frame rendered"
 
+function errorfilter(line)
+  return !contains(line, renderstring) &&
+    !contains(line, "Unable to create basic Accelerated OpenGL renderer") &&
+    !contains(line, "Core Image is now using the software OpenGL renderer")
+end
+
 cd(mydir) do
   for fname in readdir()
     if endswith(fname, ".jl") && fname ∉ excluded
