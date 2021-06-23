@@ -1,6 +1,13 @@
 # MUST disable threading in Qt
 ENV["QSG_RENDER_LOOP"] = "basic"
 
+if Sys.iswindows()
+    if get(ENV, "CI", "false") == "true"
+        @warn "Skipping gltriangle example on Windows CI due to limited OpenGL"
+        exit()
+    end
+end
+
 using CxxWrap
 using QML
 using Qt5QuickControls2_jll
