@@ -5,14 +5,19 @@ using CxxWrap
 using Observables
 using QML
 using GLMakie
+using Makie
 
 const xpos = Node(collect(0.1:0.05:0.3))
 const ypos = Node(rand(length(xpos[])))
 
-plotscene = lines(xpos, ypos, color = :blue)
+fig, ax, pl = lines(xpos, ypos, color = :blue)
+
+figscene = fig.scene
+axscene = ax.scene
+
 const needupdate = Observable(true)
 
-on(plotscene.data_limits) do l
+on(ax.finallimits) do l
   needupdate[] = true
 end
 
@@ -21,11 +26,12 @@ positionmodel = ListModel(tuple.(xpos[], ypos[]), false)
 # Convert model coordinates to screen (inverse of to_world)
 function to_screen(scene, point)
   cam = scene.camera
-  cam_res = widths(pixelarea(scene)[])
+  plotrect = pixelarea(scene)[]
+  cam_res = widths(plotrect)
   prj_view = cam.projection[] * cam.view[] * GLMakie.Makie.transformationmatrix(scene)[]
   pix_space = prj_view * Vec4f0(point[1], point[2], 0.0, 1.0)
   clip_space = (pix_space[1], pix_space[2])
-  return ((clip_space .+ 1) ./ 2) .* cam_res
+  return ((clip_space .+ 1) ./ 2) .* cam_res .+ Makie.origin(plotrect)
 end
 
 function update_scene(lm)
@@ -40,7 +46,7 @@ function update_scene(lm)
   return
 end
 
-getscreenpos(xy::Tuple, i::Integer) = to_screen(plotscene, xy)[i]
+getscreenpos(xy::Tuple, i::Integer) = to_screen(axscene, xy)[i]
 
 function setpos(lm, x_or_y, listidx, i)
   newpos = [lm[listidx]...]
@@ -49,7 +55,10 @@ function setpos(lm, x_or_y, listidx, i)
   update_scene(lm)
 end
 
-setscreenpos(lm, x_or_y, listidx, i) = setpos(lm, to_world(plotscene, Point2f0(x_or_y, x_or_y))[i], listidx, i)
+function setscreenpos(lm, x_or_y, listidx, i)
+  axscreenpos = Point2f0(x_or_y, x_or_y) .- Makie.origin(pixelarea(axscene)[])
+  setpos(lm, to_world(axscene, axscreenpos)[i], listidx, i)
+end
 
 addrole(positionmodel, "xpos", xy -> xy[1], (lm, x_or_y, i) -> setpos(lm, x_or_y, i, 1))
 addrole(positionmodel, "ypos", xy -> xy[2], (lm, x_or_y, i) -> setpos(lm, x_or_y, i, 2))
@@ -58,7 +67,7 @@ addrole(positionmodel, "yposscreen", xy -> getscreenpos(xy,2), (lm, x_or_y, i) -
 
 # Render function that takes a parameter t from a QML slider
 function render_function(screen)
-  display(screen, plotscene)
+  display(screen, figscene)
   if needupdate[] # The screen positions change if a resize happens and are unknown before the first render
     QML.force_model_update(positionmodel)
     needupdate[] = false
@@ -66,7 +75,7 @@ function render_function(screen)
   return
 end
 
-load(joinpath(dirname(@__FILE__), "qml", "makie-plot.qml"),
+loadqml(joinpath(dirname(@__FILE__), "qml", "makie-plot.qml"),
   positionModel = positionmodel,
   updates = JuliaPropertyMap("needupdate" => needupdate),
   render_callback = @safe_cfunction(render_function, Cvoid, (Any,))
