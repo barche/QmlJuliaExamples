@@ -4,6 +4,7 @@ ENV["QSG_RENDER_LOOP"] = "basic"
 using CxxWrap
 using Observables
 using QML
+using Qt5QuickControls2_jll
 using GLMakie
 using Makie
 using GeometryBasics
