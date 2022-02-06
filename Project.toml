@@ -15,3 +15,13 @@ Qt5QuickControls2_jll = "bf3ac11c-603e-589e-b4b7-e696ac65aa4a"
 Qt5QuickControls_jll = "e4aecf45-a397-53cc-864f-87db395e0248"
 ResumableFunctions = "c5292f4c-5179-55e1-98c5-05642aab7184"
 TestImages = "5e47fb64-e119-507b-a336-dd2b206d9990"
+
+[compat]
+ColorTypes = "0.11"
+CxxWrap = "0.12"
+FileIO = "1.12"
+Observables = "0.4"
+GLMakie = "0.5"
+Makie = "0.16"
+QML = "0.7"
+julia = "1.6"
