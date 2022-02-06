@@ -6,9 +6,10 @@ using Observables
 using QML
 using GLMakie
 using Makie
+using GeometryBasics
 
-const xpos = Node(collect(0.1:0.05:0.3))
-const ypos = Node(rand(length(xpos[])))
+const xpos = Observable(collect(0.1:0.05:0.3))
+const ypos = Observable(rand(length(xpos[])))
 
 fig, ax, pl = lines(xpos, ypos, color = :blue)
 
@@ -28,7 +29,7 @@ function to_screen(scene, point)
   cam = scene.camera
   plotrect = pixelarea(scene)[]
   cam_res = widths(plotrect)
-  prj_view = cam.projection[] * cam.view[] * GLMakie.Makie.transformationmatrix(scene)[]
+  prj_view = cam.projection[] * cam.view[] * Makie.transformationmatrix(scene)[]
   pix_space = prj_view * Vec4f0(point[1], point[2], 0.0, 1.0)
   clip_space = (pix_space[1], pix_space[2])
   return ((clip_space .+ 1) ./ 2) .* cam_res .+ Makie.origin(plotrect)
