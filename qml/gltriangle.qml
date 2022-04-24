@@ -1,8 +1,8 @@
-import QtQuick 2.0
-import QtQuick.Controls 2.0
-import QtQuick.Layouts 1.0
-import org.julialang 1.1
-import QtQuick.Window 2.2
+import QtQuick
+import QtQuick.Controls
+import QtQuick.Layouts
+import org.julialang
+import QtQuick.Window
 
 ApplicationWindow {
   id: appRoot

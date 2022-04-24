@@ -1,8 +1,8 @@
-import QtQuick 2.0
-import QtQuick.Controls 1.0
-import QtQuick.Layouts 1.0
-import org.julialang 1.1
-import QtQuick.Window 2.2
+import QtQuick
+import QtQuick.Controls
+import QtQuick.Layouts
+import org.julialang
+import QtQuick.Window
 
 ApplicationWindow {
   title: "My Application"
@@ -27,8 +27,8 @@ ApplicationWindow {
         id: amplitudeSlider
         width: 100
         value: 1.0
-        minimumValue: 0.1
-        maximumValue: 5.0
+        from: 0.1
+        to: 5.0
         onValueChanged: { 
           parameters.amplitude = value;
           painter.update()
@@ -43,8 +43,8 @@ ApplicationWindow {
         id: frequencySlider
         width: 100
         value: 10.0
-        minimumValue: 1.0
-        maximumValue: 50.
+        from: 1.0
+        to: 50.0
         onValueChanged: { 
           parameters.frequency = value;
           painter.update()
