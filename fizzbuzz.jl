@@ -1,5 +1,4 @@
 using QML
-using Qt5QuickControls_jll
 using Observables
 """
 Translation of the FizzBuzz example from http://seanchas116.github.io/ruby-qml/

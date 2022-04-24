@@ -1,6 +1,5 @@
 using Test
 using QML
-using Qt5QuickControls_jll
 using Observables
 
 hello() = "Hello from Julia"

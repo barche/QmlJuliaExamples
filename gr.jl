@@ -1,7 +1,6 @@
 ENV["QSG_RENDER_LOOP"] = "basic" # multithreading in Qt must be off
 using CxxWrap # for safe_cfunction
 using QML
-using Qt5QuickControls_jll
 using Observables
 
 # Set up plots with GR so QPainter can be used directly

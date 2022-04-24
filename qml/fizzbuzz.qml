@@ -1,7 +1,7 @@
-import QtQuick 2.2
-import QtQuick.Controls 1.1
-import QtQuick.Layouts 1.1
-import org.julialang 1.0
+import QtQuick
+import QtQuick.Controls
+import QtQuick.Layouts
+import org.julialang
 
 ApplicationWindow {
     visible: true
@@ -36,7 +36,7 @@ ApplicationWindow {
     JuliaSignals {
       signal fizzBuzzFound(var fizzbuzzvalue)
       signal fizzBuzzFail()
-      onFizzBuzzFound: lastFizzBuzz.text = fizzbuzzvalue
+      onFizzBuzzFound: function(fbv) { lastFizzBuzz.text = fbv; }
       onFizzBuzzFail: textField.placeholderText = "3*5 = ..."
     }
 }
