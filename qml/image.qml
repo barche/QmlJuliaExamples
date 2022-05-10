@@ -5,8 +5,8 @@ import org.julialang 1.0
 
 ApplicationWindow {
   title: "My Application"
-  width: 300
-  height: 300
+  width: 520
+  height: 550
   visible: true
 
   ColumnLayout {
@@ -21,8 +21,8 @@ ApplicationWindow {
 
     JuliaDisplay {
       id: jdisp
-      width: 256
-      height: 256
+      width: 512
+      height: 512
     }
   }
 }
