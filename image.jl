@@ -5,7 +5,7 @@ using Images # for show of png
 using TestImages
 
 function test_display(d::JuliaDisplay)
-  img = testimage("lena_color_256")
+  img = testimage("mandril_color")
   display(d, img)
 end
 @qmlfunction test_display
