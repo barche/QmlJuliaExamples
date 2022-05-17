@@ -3,7 +3,6 @@ using Test
 using QML
 using Images
 
-imglock = ReentrantLock()
 const img = zeros(RGB,512,512)
 
 function circle!(img,r)
@@ -20,6 +19,7 @@ function circle!(img,r)
             end
         end
     end
+    GC.safepoint()
 end
 
 function startsimulation()
@@ -28,33 +28,26 @@ function startsimulation()
         lastr = 250.0
         while true
             for r in range(startr, lastr, 1000)
-                lock(imglock)
                 circle!(img,r)
-                unlock(imglock)
-                yield() # No idea why this is needed
             end
             for r in range(lastr, startr, 1000)
-                lock(imglock)
                 circle!(img,r)
-                unlock(imglock)
-                yield() # No idea why this is needed
             end
         end
     end
 end
 
 function showlatest(d::JuliaDisplay)
-    lock(imglock)
     display(d, img)
-    unlock(imglock)
-    yield()
 end
+
 @qmlfunction showlatest
 
 qmlfile = joinpath(dirname(@__FILE__), "qml", "threadeddisplay.qml")
 loadqml(qmlfile)
 
-# Run the application
+# Run the "simulation"
 startsimulation()
+
 # Start the GUI
 exec()

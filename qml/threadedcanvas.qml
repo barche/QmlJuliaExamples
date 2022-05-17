@@ -30,7 +30,7 @@ ApplicationWindow {
 
   Timer {
     // Set interval in ms:
-    interval: 20; running: displayCheck.checked; repeat: true
+    interval: 1; running: displayCheck.checked; repeat: true
     onTriggered: {
       canvas.update();
     }

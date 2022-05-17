@@ -24,12 +24,15 @@ ApplicationWindow {
       id: jdisp
       width: 512
       height: 512
+      Component.onCompleted: {
+        Julia.showlatest(jdisp);
+      }
     }
   }
 
   Timer {
     // Set interval in ms:
-    interval: 40; running: displayCheck.checked; repeat: true
+    interval: 16; running: displayCheck.checked; repeat: true
     onTriggered: {
       Julia.showlatest(jdisp);
     }
