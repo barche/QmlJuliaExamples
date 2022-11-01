@@ -66,10 +66,10 @@ Rectangle {
                 }
                 Image {
                     source: "content/pics/arrow-up.png"
-                    MouseArea { anchors.fill: parent; onClicked: fruitModel.move(index, index-1, 1) }
+                    MouseArea { anchors.fill: parent; onClicked: fruitModel.moveRow(index, index-1, 1) }
                 }
                 Image { source: "content/pics/arrow-down.png"
-                    MouseArea { anchors.fill: parent; onClicked: fruitModel.move(index, index+1, 1) }
+                    MouseArea { anchors.fill: parent; onClicked: fruitModel.moveRow(index, index+1, 1) }
                 }
             }
 
@@ -111,7 +111,7 @@ Rectangle {
                     PressAndHoldButton {
                         anchors.verticalCenter: parent.verticalCenter
                         source: "content/pics/plus-sign.png"
-                        onClicked: fruitModel.setProperty(index, "cost", cost + 0.25)
+                        onClicked: fruitModel.setData(fruitModel.index(index, 0), cost + 0.25, roles.cost);
                     }
 
                     Text {
@@ -126,30 +126,37 @@ Rectangle {
                     PressAndHoldButton {
                         anchors.verticalCenter: parent.verticalCenter
                         source: "content/pics/minus-sign.png"
-                        onClicked: fruitModel.setProperty(index, "cost", Math.max(0,cost-0.25))
+                        onClicked: fruitModel.setData(fruitModel.index(index, 0), Math.max(0,cost-0.25), roles.cost);
                     }
 
                     Image {
                         source: "content/pics/list-delete.png"
-                        MouseArea { anchors.fill:parent; onClicked: fruitModel.remove(index) }
+                        MouseArea { anchors.fill:parent; onClicked: fruitModel.removeRow(index) }
                     }
                 }
             }
 
             // Animate adding and removing of items:
 //! [1]
-            ListView.onAdd: SequentialAnimation {
+
+            SequentialAnimation {
+                id: addAnimation
                 PropertyAction { target: delegateItem; property: "height"; value: 0 }
                 NumberAnimation { target: delegateItem; property: "height"; to: 80; duration: 250; easing.type: Easing.InOutQuad }
             }
 
-            ListView.onRemove: SequentialAnimation {
+            ListView.onAdd: addAnimation.start()
+
+            SequentialAnimation {
+                id: removeAnimation
                 PropertyAction { target: delegateItem; property: "ListView.delayRemove"; value: true }
                 NumberAnimation { target: delegateItem; property: "height"; to: 0; duration: 250; easing.type: Easing.InOutQuad }
 
                 // Make sure delayRemove is set back to false so that the item can be destroyed
                 PropertyAction { target: delegateItem; property: "ListView.delayRemove"; value: false }
             }
+
+            ListView.onRemove: removeAnimation.start()
         }
 //! [1]
     }
@@ -174,7 +181,7 @@ Rectangle {
         TextButton {
             text: "Add an item"
             onClicked: {
-                fruitModel.append({
+                fruitModel.appendRow({
                     "name": "Pizza Margarita",
                     "cost": 5.95,
                     "attributes": [{"description": "Cheese"}, {"description": "Tomato"}]
