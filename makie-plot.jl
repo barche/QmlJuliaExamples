@@ -62,10 +62,10 @@ function setscreenpos(lm, x_or_y, listidx, i)
   setpos(lm, to_world(axscene, axscreenpos)[i], listidx, i)
 end
 
-addrole(positionmodel, "xpos", xy -> xy[1], (lm, x_or_y, i) -> setpos(lm, x_or_y, i, 1))
-addrole(positionmodel, "ypos", xy -> xy[2], (lm, x_or_y, i) -> setpos(lm, x_or_y, i, 2))
-addrole(positionmodel, "xposscreen", xy -> getscreenpos(xy,1), (lm, x_or_y, i) -> setscreenpos(lm, x_or_y, i, 1))
-addrole(positionmodel, "yposscreen", xy -> getscreenpos(xy,2), (lm, x_or_y, i) -> setscreenpos(lm, x_or_y, i, 2))
+addrole!(positionmodel, "xpos", xy -> xy[1], (lm, x_or_y, i) -> setpos(lm, x_or_y, i, 1))
+addrole!(positionmodel, "ypos", xy -> xy[2], (lm, x_or_y, i) -> setpos(lm, x_or_y, i, 2))
+addrole!(positionmodel, "xposscreen", xy -> getscreenpos(xy,1), (lm, x_or_y, i) -> setscreenpos(lm, x_or_y, i, 1))
+addrole!(positionmodel, "yposscreen", xy -> getscreenpos(xy,2), (lm, x_or_y, i) -> setscreenpos(lm, x_or_y, i, 2))
 
 # Render function that takes a parameter t from a QML slider
 function render_function(screen)

@@ -11,10 +11,10 @@ end
 const years = Observable(collect(Cint,2016:2025)) # exposed as context property
 nuclides = [Nuclide(name, Dict([(y,rand()) for y in years[]])) for name in ["Co60", "Cs137", "Ni63"]]
 nuclidesModel = ListModel(nuclides, false)
-addrole(nuclidesModel, "name", n -> n.name)
+addrole!(nuclidesModel, "name", n -> n.name)
 
 # Seems roles can't start with a number
-add_year_role(model, year::Integer) = addrole(model, "y" * string(year), n -> round(n.values[year]; digits=2))
+add_year_role(model, year::Integer) = addrole!(model, "y" * string(year), n -> round(n.values[year]; digits=2))
 
 # add year roles manually:
 for y in years[]
