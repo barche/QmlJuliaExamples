@@ -1,7 +1,7 @@
-import QtQuick 2.0
-import QtQuick.Controls 1.0
-import QtQuick.Layouts 1.0
-import org.julialang 1.0
+import QtQuick
+import QtQuick.Controls
+import QtQuick.Layouts
+import org.julialang
 
 // Dynamic columns idea from:
 // http://stackoverflow.com/questions/27230818/qml-tableview-with-dynamic-number-of-columns

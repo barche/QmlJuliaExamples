@@ -1,7 +1,6 @@
 ENV["QSG_RENDER_LOOP"] = "basic"
 
 using QML
-using Qt5QuickControls_jll
 using Observables
 using ColorTypes
 import CxxWrap # for safe_cfunction

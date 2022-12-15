@@ -1,5 +1,4 @@
 using QML
-using Qt5QuickControls_jll
 
 qmlfile = joinpath(@__DIR__, "qml", "text.qml")
 

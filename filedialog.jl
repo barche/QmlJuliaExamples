@@ -1,5 +1,4 @@
 using QML
-using Qt5QuickControls_jll
 
 function singlefile(uri)
   uri_s = QString(uri)

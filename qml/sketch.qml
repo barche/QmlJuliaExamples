@@ -1,6 +1,6 @@
-import QtQuick 2.0
-import QtQuick.Controls 2.0
-import org.julialang 1.0
+import QtQuick
+import QtQuick.Controls
+import org.julialang
 
 ApplicationWindow {
   title: "Sketch"

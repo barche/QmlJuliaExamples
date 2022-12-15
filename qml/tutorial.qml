@@ -1,7 +1,7 @@
-import QtQuick 2.0
-import QtQuick.Controls 1.0
-import QtQuick.Layouts 1.0
-import org.julialang 1.0
+import QtQuick
+import QtQuick.Controls
+import QtQuick.Layouts
+import org.julialang
 
 ApplicationWindow {
     title: "My Application"
@@ -43,11 +43,11 @@ ApplicationWindow {
         x: 4; anchors.bottom: page.bottom; anchors.bottomMargin: 4
         rows: 2; columns: 3; spacing: 3
 
-        Cell { cellColor: "red"; onClicked: helloText.color = cellColor }
-        Cell { cellColor: "green"; onClicked: helloText.color = cellColor }
-        Cell { cellColor: "blue"; onClicked: helloText.color = cellColor }
-        Cell { cellColor: "yellow"; onClicked: helloText.color = cellColor }
-        Cell { cellColor: "steelblue"; onClicked: helloText.color = cellColor }
-        Cell { cellColor: "black"; onClicked: helloText.color = cellColor }
+        Cell { id: "c1"; cellColor: "red"; onClicked: helloText.color = c1.cellColor }
+        Cell { id: "c2"; cellColor: "green"; onClicked: helloText.color = c2.cellColor }
+        Cell { id: "c3"; cellColor: "blue"; onClicked: helloText.color = c3.cellColor }
+        Cell { id: "c4"; cellColor: "yellow"; onClicked: helloText.color = c4.cellColor }
+        Cell { id: "c5"; cellColor: "steelblue"; onClicked: helloText.color = c5.cellColor }
+        Cell { id: "c6"; cellColor: "black"; onClicked: helloText.color = c6.cellColor }
     }
 }

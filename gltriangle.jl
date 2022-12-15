@@ -5,6 +5,8 @@ using CxxWrap
 using QML
 using ModernGL, GeometryBasics
 
+QML.setGraphicsApi(QML.OpenGL)
+
 mutable struct Corner
     id::Int32
     cx::Float64
@@ -107,6 +109,6 @@ end
 
 # Pass the triangle as a context property
 loadqml(joinpath(dirname(@__FILE__), "qml", "gltriangle.qml"),
-    cornersModel=ListModel(corners),
+    cornersModel=JuliaItemModel(corners),
     render_triangle=@safe_cfunction(render, Cvoid, ()))
 exec()

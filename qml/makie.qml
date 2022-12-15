@@ -1,7 +1,7 @@
-import QtQuick 2.0
-import QtQuick.Controls 1.0
-import QtQuick.Layouts 1.0
-import org.julialang 1.0
+import QtQuick
+import QtQuick.Controls
+import QtQuick.Layouts
+import org.julialang
 
 ApplicationWindow {
   title: "My Application"
@@ -25,8 +25,8 @@ ApplicationWindow {
       Slider {
         id: angle
         value: 0.0
-        minimumValue: 0.0
-        maximumValue: 360.0
+        from: 0.0
+        to: 360.0
         onValueChanged: {
           cat.angle = value;
           viewport.update();

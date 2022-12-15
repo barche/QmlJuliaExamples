@@ -1,5 +1,4 @@
 using QML
-using Qt5QuickControls_jll
 using Observables
 
 qml_file = joinpath(dirname(@__FILE__), "qml", "observable.qml")

@@ -1,5 +1,4 @@
 using QML
-using Qt5QuickControls_jll
 
 qml_file = joinpath(dirname(@__FILE__), "qml", "repl-background.qml")
 

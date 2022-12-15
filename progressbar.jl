@@ -1,7 +1,6 @@
 # This example show how to update the GUI during a long-running simulation
 using Test
 using QML
-using Qt5QuickControls2_jll
 using Observables
 using ResumableFunctions
 using Statistics
