@@ -1,5 +1,4 @@
 using QML
-using Qt5QuickControls_jll
 
 # Represents the state related to a single emoji
 mutable struct EmojiState
@@ -16,7 +15,7 @@ randpos() = rand()*0.8+0.1
 for (i,e) in enumerate(["😁", "😃", "😆", "😎", "😈", "☹", "🌚", "😤", "🐭"])
   push!(emoji, EmojiState(e,0, i%2 == 0 ? "lightgrey" : "darkgrey", randpos(), randpos()))
 end
-emojiModel = ListModel(emoji) # passed to QML
+emojiModel = JuliaItemModel(emoji) # passed to QML
 
 cols = 3
 

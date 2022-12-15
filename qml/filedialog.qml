@@ -1,7 +1,8 @@
-import QtQuick 2.2
-import QtQuick.Dialogs 1.0
-import QtQuick.Controls 1.0
-import org.julialang 1.0
+import QtCore
+import QtQuick
+import QtQuick.Dialogs
+import QtQuick.Controls
+import org.julialang
 
 ApplicationWindow {
   title: "FileDialog"
@@ -12,11 +13,11 @@ ApplicationWindow {
   FileDialog {
       id: fileDialog
       title: "Please choose a file"
-      selectMultiple: true
-      folder: shortcuts.home
+      fileMode: FileDialog.OpenFiles
+      currentFolder: StandardPaths.standardLocations(StandardPaths.HomeLocation)[0]
       onAccepted: {
-          Julia.singlefile(fileDialog.fileUrl)
-          Julia.multifile(fileDialog.fileUrls)
+          Julia.singlefile(selectedFile)
+          Julia.multifile(selectedFiles)
           Qt.quit()
       }
       onRejected: {

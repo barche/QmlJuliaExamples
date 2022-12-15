@@ -1,12 +1,11 @@
 ENV["QT_QUICK_CONTROLS_STYLE"] = "Fusion"
 
 using QML
-using Qt5QuickControls2_jll
 
 qml_data = QByteArray("""
-import QtQuick 2.12
-import QtQuick.Controls 2.4
-import org.julialang 1.1
+import QtQuick
+import QtQuick.Controls
+import org.julialang
 
 ApplicationWindow {
   title: "Test"

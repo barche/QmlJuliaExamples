@@ -1,7 +1,6 @@
 ENV["QSG_RENDER_LOOP"] = "basic" # multithreading in Qt must be off
 
 using QML
-using Qt5QuickControls2_jll
 using Observables
 using Plots
 using ColorTypes

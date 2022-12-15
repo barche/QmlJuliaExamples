@@ -1,5 +1,4 @@
 using QML
-using Qt5QuickControls_jll
 
 # Represents the state related to a single emoji
 mutable struct EmojiState

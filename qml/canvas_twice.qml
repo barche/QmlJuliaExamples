@@ -1,7 +1,7 @@
-import QtQuick 2.0
-import QtQuick.Controls 1.0
-import QtQuick.Layouts 1.0
-import org.julialang 1.0
+import QtQuick
+import QtQuick.Controls
+import QtQuick.Layouts
+import org.julialang
 
 ApplicationWindow {
   id: app
@@ -30,8 +30,8 @@ ApplicationWindow {
           id: diameter
           width: 100
           value: 50
-          minimumValue: 5.0
-          maximumValue: circle_canvas.width
+          from: 5.0
+          to: circle_canvas.width
           onValueChanged: {
             parameters.diameter = value;
             circle_canvas.update();
@@ -62,8 +62,8 @@ ApplicationWindow {
           id: side
           width: 100
           value: 10.0
-          minimumValue: 5.0
-          maximumValue: square_canvas.width
+          from: 5.0
+          to: square_canvas.width
           onValueChanged: {
             parameters.side = value;
             square_canvas.update();
