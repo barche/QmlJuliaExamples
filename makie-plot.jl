@@ -12,6 +12,7 @@ const xpos = Observable(collect(0.1:0.05:0.3))
 const ypos = Observable(rand(length(xpos[])))
 
 fig, ax, pl = lines(xpos, ypos, color = :blue)
+autolimits!(ax)
 
 figscene = fig.scene
 axscene = ax.scene
@@ -22,7 +23,7 @@ on(ax.finallimits) do l
   needupdate[] = true
 end
 
-positionmodel = ListModel(tuple.(xpos[], ypos[]), false)
+positionmodel = JuliaItemModel(tuple.(xpos[], ypos[]), false)
 
 # Convert model coordinates to screen (inverse of to_world)
 function to_screen(scene, point)
@@ -75,6 +76,8 @@ function render_function(screen)
   end
   return
 end
+
+QML.setGraphicsApi(QML.OpenGL)
 
 loadqml(joinpath(dirname(@__FILE__), "qml", "makie-plot.qml"),
   positionModel = positionmodel,
