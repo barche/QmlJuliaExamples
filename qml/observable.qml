@@ -18,10 +18,9 @@ ApplicationWindow {
       value: observables.input
       Layout.alignment: Qt.AlignCenter
       Layout.fillWidth: true
-      minimumValue: 0.0
-      maximumValue: 100.0
+      from: 0.0
+      to: 100.0
       stepSize: 1.0
-      tickmarksEnabled: true
       onValueChanged: {
         observables.input = value;
         observables.output = 2*observables.input;

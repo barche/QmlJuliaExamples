@@ -22,6 +22,7 @@ ApplicationWindow {
     ComboBox {
       Layout.alignment: Qt.AlignCenter
       currentIndex: parameters.selectedSimType-1
+      textRole: "display"
       model: simulationTypes
       width: 300
       onCurrentIndexChanged: { if (currentIndex >= 0) { parameters.selectedSimType = currentIndex+1; }}

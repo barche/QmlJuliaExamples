@@ -139,7 +139,7 @@ function startsimulation()
 end
 @qmlfunction startsimulation
 
-simtypes = ListModel(first.(simulation_types))
+simtypes = JuliaItemModel(first.(simulation_types))
 
 # All arguments after qmlfile are context properties:
 loadqml(

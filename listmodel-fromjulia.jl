@@ -37,7 +37,7 @@ ApplicationWindow {
   """)
 
 slidervalues = (collect(0.2:0.2:1.0))
-slider = ListModel(slidervalues)
+slider = JuliaItemModel(slidervalues)
 addrole!(slider, "sliderval", identity, setindex!)
 
 qengine = init_qmlengine()
