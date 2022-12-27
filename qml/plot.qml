@@ -43,8 +43,8 @@ ApplicationWindow {
         id: amplitude
         width: 100
         value: 1.
-        minimumValue: 0.1
-        maximumValue: 5.
+        from: 0.1
+        to: 5.
         onValueChanged: root.do_plot()
       }
 
@@ -56,8 +56,8 @@ ApplicationWindow {
         id: frequency
         width: 100
         value: 1.
-        minimumValue: 1.
-        maximumValue: 50.
+        from: 1.
+        to: 50.
         onValueChanged: root.do_plot()
       }
 
