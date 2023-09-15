@@ -64,9 +64,9 @@ function render()
   status = Ref(GLint(0))
   glGetShaderiv(vertex_shader, GL_COMPILE_STATUS, status)
   if status[] != GL_TRUE
-      buffer = Array(UInt8, 512)
+      buffer = Vector{UInt8}(undef, 512)
       glGetShaderInfoLog(vertex_shader, 512, C_NULL, buffer)
-      error(bytestring(buffer))
+      error(String(buffer))
   end
 
   # Compile the fragment shader
@@ -77,9 +77,9 @@ function render()
   status = Ref(GLint(0))
   glGetShaderiv(fragment_shader, GL_COMPILE_STATUS, status)
   if status[] != GL_TRUE
-      buffer = Array(UInt8, 512)
+      buffer = Vector{UInt8}(undef, 512)
       glGetShaderInfoLog(fragment_shader, 512, C_NULL, buffer)
-      error(bytestring(buffer))
+      error(String(buffer))
   end
 
   # Connect the shaders by combining them into a program

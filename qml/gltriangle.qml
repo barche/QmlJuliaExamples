@@ -11,6 +11,12 @@ ApplicationWindow {
   height: 500
   visible: true
 
+  function markerSize() { return 9; }
+  function screenPosition(storedPosition, l)
+  {
+    return (storedPosition + 1)/2 * l - markerSize()/2;
+  }
+
   OpenGLViewport {
     id: viewport
     anchors.fill: parent
@@ -22,14 +28,14 @@ ApplicationWindow {
 
       Rectangle {
         id: pointMarker
-        width: 9
-        height: 9
+        width: markerSize()
+        height: markerSize()
         color: "black"
         
 
         Component.onCompleted: {
-          x = (cx+1)/2*appRoot.width-width/2
-          y =  (-cy+1)/2*appRoot.height-height/2
+          x = screenPosition(cx, appRoot.width);
+          y = screenPosition(-cy, appRoot.height);
         }
 
         Text { text: id; x: 10; y: 10 }
@@ -53,6 +59,12 @@ ApplicationWindow {
         onYChanged: {
           cy = -((y+height/2)*2/appRoot.height-1);
           viewport.update();
+        }
+
+        Connections {
+          target: viewport
+          function onWidthChanged(w) { pointMarker.x = screenPosition(cx, appRoot.width); }
+          function onHeightChanged(h) { pointMarker.y = screenPosition(-cy, appRoot.height); }
         }
       }
     }
