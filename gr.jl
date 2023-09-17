@@ -5,7 +5,7 @@ using Observables
 
 # Set up plots with GR so QPainter can be used directly
 ENV["GKSwstype"] = 381
-ENV["GKS_QT_VERSION"] = 5
+ENV["GKS_QT_VERSION"] = 6
 using Plots
 gr(show=true)
 
