@@ -54,7 +54,7 @@ exec()
 
 # Show that the Julia fruitlist was modified
 # Note that not all modifications happen in-place, to get the new fruitlist use the values function:
-fruitlist = values(fruitmodel)
+fruitlist = values(fruitmodel)[]
 println("Your fruits:")
 for f in fruitlist
   println("  $(f.name), \$$(f.cost)")
