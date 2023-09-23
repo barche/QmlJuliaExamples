@@ -10,6 +10,7 @@ struct NuclidesModel <: AbstractArray{Float64,2}
 end
 
 NuclidesModel(nuclides, years) = NuclidesModel(nuclides, years, [[rand() for _ in years] for _ in nuclides])
+extranuclides = ["Se74", "Se80", "126Xe", "144Sm", "153Eu"]
 
 Base.size(t::NuclidesModel) = (length(t.nuclides), length(t.years))
 Base.IndexStyle(::Type{<:NuclidesModel}) = IndexCartesian()
@@ -17,7 +18,7 @@ Base.getindex(t::NuclidesModel, i::Integer, j::Integer) = t.rows[i][j]
 Base.setindex!(t::NuclidesModel, val, i::Integer, j::Integer) = t.rows[i][j] = val
 function Base.push!(t::NuclidesModel, row)
   push!(t.rows, row)
-  push!(t.nuclides, "Unknown")
+  push!(t.nuclides, rand(extranuclides))
 end
 Base.deleteat!(t::NuclidesModel, rows) = deleteat!(t.rows, rows)
 # This is used in the column insertion and removal procedure

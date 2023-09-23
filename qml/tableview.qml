@@ -3,9 +3,6 @@ import QtQuick.Controls
 import QtQuick.Layouts
 import org.julialang
 
-// Dynamic columns idea from:
-// http://stackoverflow.com/questions/27230818/qml-tableview-with-dynamic-number-of-columns
-
 ApplicationWindow {
   title: "Arrays"
   width: 800
@@ -54,12 +51,14 @@ ApplicationWindow {
         id: horizontalHeader
         syncView: tableView
         anchors.left: tableView.left
+        clip: true
       }
 
       VerticalHeaderView {
         id: verticalHeader
         syncView: tableView
         anchors.top: tableView.top
+        clip: true
       }
 
       TableView {
