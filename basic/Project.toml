@@ -1,0 +1,12 @@
+[deps]
+ColorTypes = "3da002f7-5984-5a60-b8a6-cbb66c0b333f"
+CxxWrap = "1f15a43c-97ca-5a2a-ae31-89f07a497df4"
+Observables = "510215fc-4207-5dde-b226-833fc4488ee2"
+QML = "2db162a6-7e43-52c3-8d84-290c1c42d82a"
+ResumableFunctions = "c5292f4c-5179-55e1-98c5-05642aab7184"
+
+[compat]
+ColorTypes = "0.11"
+CxxWrap = "0.14"
+QML = "0.8"
+julia = "1.6"

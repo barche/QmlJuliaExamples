@@ -18,6 +18,8 @@ ApplicationWindow {
       delegate: Row {
         Slider {
           id: sliderControl
+          from: 0.0
+          to: 2.0
           onValueChanged: {
             sliderval = value;
           }
@@ -26,9 +28,9 @@ ApplicationWindow {
             value = sliderval;
           }
           Connections {
-		    target: slider
-		    function onDataChanged() { sliderControl.value = sliderval; }
-	      }
+		        target: slider
+		        function onDataChanged() { sliderControl.value = sliderval; }
+	        }
         }
       }
     }

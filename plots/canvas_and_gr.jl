@@ -10,7 +10,7 @@ const qmlfile = joinpath(dirname(Base.source_path()), "qml", "canvas_and_gr.qml"
 
 ENV["GKSwstype"] = "use_default"
 ENV["GKS_WSTYPE"] = 381
-ENV["GKS_QT_VERSION"] = 5
+ENV["GKS_QT_VERSION"] = 6
 gr(show=true)
 
 invert_sin = Observable(-1)

@@ -1,0 +1,12 @@
+[deps]
+CxxWrap = "1f15a43c-97ca-5a2a-ae31-89f07a497df4"
+Images = "916415d5-f1e6-5110-898d-aaa5f9f070e0"
+Observables = "510215fc-4207-5dde-b226-833fc4488ee2"
+QML = "2db162a6-7e43-52c3-8d84-290c1c42d82a"
+TestImages = "5e47fb64-e119-507b-a336-dd2b206d9990"
+
+[compat]
+CxxWrap = "0.14"
+Observables = "0.5"
+QML = "0.8"
+julia = "1.6"
