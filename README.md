@@ -5,11 +5,28 @@ These are examples for use with the [QML.jl](https://github.com/JuliaGraphics/QM
 Quickstart to test, from within Julia:
 
 ```julia
-import LibGit2, Pkg
-cd(mktempdir())
-LibGit2.clone("https://github.com/barche/QmlJuliaExamples.git", "./")
-cd("basic")
+# Alternatively, execute the git command directly in the shell or download the zip file
+import LibGit2
+isdir("QmlJuliaExamples") || LibGit2.clone("https://github.com/barche/QmlJuliaExamples.git", "QmlJuliaExamples")
+cd("QmlJuliaExamples/basic") # or images, opengl or plots instead of the basic subdirectory
+
+# As an alternative to next three lines,
+# 1) Start Julia with `julia --project`
+# 2) Run `instantiate` from the pkg shell.
+using Pkg
 Pkg.activate(".")
 Pkg.instantiate()
-include("gui.jl")
+
+readdir() # Print list of example files
+include("gui.jl") # Or any of the files in the directory
 ```
+Most of the examples consist of a Julia script and a .qml file in the qml subfolder.
+
+The qml file defines how the GUI looks, the Julia script provides one or more functions
+for the business logic.
+
+You will find the line:
+```julia
+ENV["QSG_RENDER_LOOP"] = "basic"
+```
+on top of most scripts to disable QML multithreading which is not yet supported by QML 0.8.
