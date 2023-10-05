@@ -1,6 +1,6 @@
-The QML.jl package is licensed under the MIT "Expat" License:
+The QmlJuliaExamples are licensed under the MIT "Expat" License:
 
-> Copyright (c) 2015: Bart Janssens and the QML.jl contributors
+> Copyright (c) 2015: Bart Janssens and the QmlJuliaExamples contributors
 >
 > Permission is hereby granted, free of charge, to any person obtaining
 > a copy of this software and associated documentation files (the
