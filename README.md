@@ -38,13 +38,14 @@ on top of most scripts to disable QML multithreading which is not yet supported 
 - canvas_alpha OK
 - canvas_twice OK
 - checkboxes OK
-- colors 
-- drag
-- dynamiclist
-- filedialog
-- fizzbuzz
-- grid
-- gui
+- colors OK
+- drag OK
+- dynamiclist OK
+- filedialog OK
+- fizzbuzz OK
+- grid  
+  Qt Warning: load glyph failed 
+- gui OK
 - listmodel-fromjulia
 - observable
 - progressbar
