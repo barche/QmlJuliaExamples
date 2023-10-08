@@ -30,3 +30,40 @@ You will find the line:
 ENV["QSG_RENDER_LOOP"] = "basic"
 ```
 on top of most scripts to disable QML multithreading which is not yet supported by QML 0.8.
+
+### Basic examples
+- board  
+  Qt Warning: load glyph failed
+- canvas OK
+- canvas_alpha OK
+- canvas_twice OK
+- checkboxes OK
+- colors 
+- drag
+- dynamiclist
+- filedialog
+- fizzbuzz
+- grid
+- gui
+- listmodel-fromjulia
+- observable
+- progressbar
+- sketch
+- tableview
+- text
+
+### Images (examples)
+- image
+- threadedcanvas
+- treadeddisplay
+
+### OpenGL examples
+- gltriangle
+- makie-plot
+- makie
+
+### Plots (examples)
+- canvas_and_gr
+- gr
+- plot
+- repl-background
