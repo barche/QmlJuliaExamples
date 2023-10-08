@@ -56,17 +56,19 @@ on top of most scripts to disable QML multithreading which is not yet supported 
 - text OK
 
 ### Images (examples)
-- image
-- threadedcanvas
-- treadeddisplay
+- image OK
+- threadedcanvas  
+  Not doing anything.
+- treadeddisplay  
+  Not doing anything.
 
 ### OpenGL examples
-- gltriangle
-- makie-plot
-- makie
+- gltriangle OK
+- makie-plot PERFECT
+- makie GOOD
 
 ### Plots (examples)
-- canvas_and_gr
-- gr
-- plot
-- repl-background
+- canvas_and_gr OK
+- gr OK
+- plot OK
+- repl-background GOOD
