@@ -46,12 +46,14 @@ on top of most scripts to disable QML multithreading which is not yet supported 
 - grid  
   Qt Warning: load glyph failed 
 - gui OK
-- listmodel-fromjulia
-- observable
-- progressbar
-- sketch
-- tableview
-- text
+- listmodel-fromjulia  
+  [7021] signal (11.1): Segmentation fault due to use of exec_async()
+- observable  
+  [7604] signal (11.128): Segmentation fault due to use of exec_async()
+- progressbar OK
+- sketch OK
+- tableview OK
+- text OK
 
 ### Images (examples)
 - image
