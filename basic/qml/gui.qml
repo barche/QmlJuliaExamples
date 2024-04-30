@@ -9,6 +9,8 @@ ApplicationWindow {
     height: 640
     visible: true
 
+    SystemPalette { id: syscolors; colorGroup: SystemPalette.Active }
+
     Connections {
       target: guiproperties.timer
       function onTimeout() { Julia.counter_slot(); }
@@ -22,6 +24,7 @@ ApplicationWindow {
           id: juliaHello
           Layout.alignment: Qt.AlignCenter
           text: Julia.hello()
+          color: syscolors.text
       }
 
       Button {
@@ -34,6 +37,7 @@ ApplicationWindow {
           id: resultDisplay
           Layout.alignment: Qt.AlignCenter
           text: "Push button for result"
+          color: syscolors.text
       }
 
       TextField {
@@ -47,16 +51,19 @@ ApplicationWindow {
           id: upperOut
           Layout.alignment: Qt.AlignCenter
           text: Julia.uppercase(lowerIn.text)
+          color: syscolors.text
       }
 
       Text {
           Layout.alignment: Qt.AlignCenter
           text: "Concatenation, showing multiple arguments:"
+          color: syscolors.text
       }
 
       Text {
           Layout.alignment: Qt.AlignCenter
           text: Julia.string(guiproperties.oldcounter, ", ", upperOut.text)
+          color: syscolors.text
       }
 
       Button {
@@ -68,6 +75,7 @@ ApplicationWindow {
       Text {
           Layout.alignment: Qt.AlignCenter
           text: guiproperties.bg_counter.toString()
+          color: syscolors.text
       }
 
       Button {
