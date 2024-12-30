@@ -29,11 +29,10 @@ You will find the line:
 ```julia
 ENV["QSG_RENDER_LOOP"] = "basic"
 ```
-on top of most scripts to disable QML multithreading which is not yet supported by QML 0.8.
+on top of most scripts to disable QML multithreading which is not yet supported by QML 0.9.
 
 ### Basic examples
-- board  
-  Qt Warning: load glyph failed
+- board  OK
 - canvas OK
 - canvas_alpha OK
 - canvas_twice OK
@@ -43,13 +42,10 @@ on top of most scripts to disable QML multithreading which is not yet supported 
 - dynamiclist OK
 - filedialog OK
 - fizzbuzz OK
-- grid  
-  Qt Warning: load glyph failed 
+- grid OK 
 - gui OK
-- listmodel-fromjulia  
-  [7021] signal (11.1): Segmentation fault due to use of exec_async()
-- observable  
-  [7604] signal (11.128): Segmentation fault due to use of exec_async()
+- listmodel-fromjulia OK
+- observable OK
 - progressbar OK
 - sketch OK
 - tableview OK
