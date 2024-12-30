@@ -64,7 +64,8 @@ on top of most scripts to disable QML multithreading which is not yet supported 
 - makie GOOD
 
 ### Plots (examples)
-- canvas_and_gr OK
+- canvas_and_gr Very nice
 - gr OK
 - plot OK
-- repl-background GOOD
+- repl-background 
+  Not doing anything.
