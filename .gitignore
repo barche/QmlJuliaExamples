@@ -3,3 +3,4 @@ basic/Manifest.toml
 images/Manifest.toml
 opengl/Manifest.toml
 plots/Manifest.toml
+basic/bin/run_julia
