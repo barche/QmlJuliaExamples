@@ -29,4 +29,43 @@ You will find the line:
 ```julia
 ENV["QSG_RENDER_LOOP"] = "basic"
 ```
-on top of most scripts to disable QML multithreading which is not yet supported by QML 0.8.
+on top of most scripts to disable QML multithreading which is not yet supported by QML 0.9.
+
+### Basic examples
+- board  OK
+- canvas OK
+- canvas_alpha OK
+- canvas_twice OK
+- checkboxes OK
+- colors OK
+- drag OK
+- dynamiclist OK
+- filedialog OK
+- fizzbuzz OK
+- grid OK 
+- gui OK
+- listmodel-fromjulia OK
+- observable OK
+- progressbar OK
+- sketch OK
+- tableview OK
+- text OK
+
+### Images (examples)
+- image OK
+- threadedcanvas  
+  Not doing anything.
+- treadeddisplay  
+  Not doing anything.
+
+### OpenGL examples
+- gltriangle OK
+- makie-plot PERFECT
+- makie GOOD
+
+### Plots (examples)
+- canvas_and_gr Very nice
+- gr OK
+- plot OK
+- repl-background 
+  Not doing anything.
