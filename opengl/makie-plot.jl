@@ -11,11 +11,11 @@ using GeometryBasics
 const xpos = Observable(collect(0.1:0.05:0.3))
 const ypos = Observable(rand(length(xpos[])))
 
-fig, ax, pl = lines(xpos, ypos, color = :blue)
-autolimits!(ax)
+fig, ax, pl = lines(xpos, ypos, color = :blue);
+autolimits!(ax);
 
-figscene = fig.scene
-axscene = ax.scene
+figscene = fig.scene;
+axscene = ax.scene;
 
 const needupdate = Observable(true)
 
@@ -31,7 +31,7 @@ function to_screen(scene, point)
   plotrect = pixelarea(scene)[]
   cam_res = widths(plotrect)
   prj_view = cam.projection[] * cam.view[] * Makie.transformationmatrix(scene)[]
-  pix_space = prj_view * Vec4f0(point[1], point[2], 0.0, 1.0)
+  pix_space = prj_view * Vec4f(point[1], point[2], 0.0, 1.0)
   clip_space = (pix_space[1], pix_space[2])
   return ((clip_space .+ 1) ./ 2) .* cam_res .+ Makie.origin(plotrect)
 end
@@ -58,7 +58,7 @@ function setpos(lm, x_or_y, listidx, i)
 end
 
 function setscreenpos(lm, x_or_y, listidx, i)
-  axscreenpos = Point2f0(x_or_y, x_or_y) .- Makie.origin(pixelarea(axscene)[])
+  axscreenpos = Point2f(x_or_y, x_or_y) .- Makie.origin(pixelarea(axscene)[])
   setpos(lm, to_world(axscene, axscreenpos)[i], listidx, i)
 end
 
