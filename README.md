@@ -31,6 +31,9 @@ ENV["QSG_RENDER_LOOP"] = "basic"
 ```
 on top of most scripts to disable QML multithreading which is not yet supported by QML 0.9.
 
+### Notes
+- `Makie v0.17.13` is required for plots using that library.
+
 ### Basic examples
 - board  OK
 - canvas OK
