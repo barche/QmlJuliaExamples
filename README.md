@@ -65,6 +65,8 @@ on top of most scripts to disable QML multithreading which is not yet supported 
 - gltriangle OK
 - makie-plot PERFECT
 - makie GOOD
+- makie-panzoom OK
+   <img src="docs/img/makie_panzoom.gif" align="center" width="750">
 
 ### Plots (examples)
 - canvas_and_gr Very nice
