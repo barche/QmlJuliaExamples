@@ -40,6 +40,7 @@ ApplicationWindow {
                 z: 2
         
                 WheelHandler {
+                    acceptedDevices: PointerDevice.Mouse | PointerDevice.TouchPad
                     onWheel: function(wheel) {
                         var zoom = wheel.angleDelta.y > 0 ? 0.9 : 1.1;
                         var x0 = params.xlims[0], x1 = params.xlims[1];
@@ -89,6 +90,7 @@ ApplicationWindow {
                 z: 2
         
                 WheelHandler {
+                    acceptedDevices: PointerDevice.Mouse | PointerDevice.TouchPad
                     onWheel: function(wheel) {
                         var zoom = wheel.angleDelta.y > 0 ? 0.9 : 1.1;
                         var y0 = params.ylims[0], y1 = params.ylims[1];
@@ -201,6 +203,7 @@ ApplicationWindow {
         
             // WheelHandler for zooming both axes in main plot area
             WheelHandler {
+                acceptedDevices: PointerDevice.Mouse | PointerDevice.TouchPad
                 id: wheelHandler
                 target: parent
                 onWheel: function(wheel) {
