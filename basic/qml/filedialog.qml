@@ -2,7 +2,7 @@ import QtCore
 import QtQuick
 import QtQuick.Dialogs
 import QtQuick.Controls
-import org.julialang
+import jlqml
 
 ApplicationWindow {
   title: "FileDialog"

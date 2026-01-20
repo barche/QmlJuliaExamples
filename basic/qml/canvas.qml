@@ -2,7 +2,7 @@ import QtQuick
 import QtQuick.Window
 import QtQuick.Controls
 import QtQuick.Layouts
-import org.julialang
+import jlqml
 import "content"  // for NamedSlider
 
 ApplicationWindow {

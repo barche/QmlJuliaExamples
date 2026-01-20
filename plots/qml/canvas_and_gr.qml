@@ -2,7 +2,7 @@ import QtQuick
 import QtQuick.Window
 import QtQuick.Controls
 import QtQuick.Layouts
-import org.julialang
+import jlqml
 import "content"  // for NamedSlider
 
 ApplicationWindow {
@@ -68,7 +68,7 @@ ApplicationWindow {
 		Layout.minimumHeight: 100
 		paintFunction: paint_canvas_wrapped
 	    }
-	}	    
+	}
     }
     JuliaSignals {
 	signal updateCanvas()
@@ -79,4 +79,3 @@ ApplicationWindow {
 	onUpdateCosPlot: cos_plot.update()
     }
 }
-
