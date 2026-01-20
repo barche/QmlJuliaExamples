@@ -6,7 +6,7 @@ QML = "2db162a6-7e43-52c3-8d84-290c1c42d82a"
 TestImages = "5e47fb64-e119-507b-a336-dd2b206d9990"
 
 [compat]
-CxxWrap = "0.16"
+CxxWrap = "0.17"
 Observables = "0.5"
-QML = "0.9"
-julia = "1.6"
+QML = "0.11"
+julia = "1.10"

@@ -5,6 +5,7 @@ using CxxWrap
 using Observables
 using QML
 using GLMakie
+using QMLMakie
 using FileIO
 
 const catangle = Observable(0.0)

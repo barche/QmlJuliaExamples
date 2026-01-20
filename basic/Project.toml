@@ -6,7 +6,7 @@ QML = "2db162a6-7e43-52c3-8d84-290c1c42d82a"
 ResumableFunctions = "c5292f4c-5179-55e1-98c5-05642aab7184"
 
 [compat]
-ColorTypes = "0.11"
-CxxWrap = "0.16"
-QML = "0.9"
-julia = "1.6"
+ColorTypes = "0.12"
+CxxWrap = "0.17"
+QML = "0.11"
+julia = "1.10"

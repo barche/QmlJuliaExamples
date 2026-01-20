@@ -1,6 +1,6 @@
 import QtQuick
 import QtQuick.Controls
-import org.julialang
+import jlqml
 
 ApplicationWindow {
   title: "Sketch"

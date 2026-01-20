@@ -5,7 +5,7 @@ using CxxWrap
 using Observables
 using QML
 using GLMakie
-using Makie
+using QMLMakie
 using GeometryBasics
 
 const xpos = Observable(collect(0.1:0.05:0.3))

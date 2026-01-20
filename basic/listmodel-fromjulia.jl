@@ -5,7 +5,7 @@ using QML
 qml_data = QByteArray("""
 import QtQuick
 import QtQuick.Controls
-import org.julialang
+import jlqml
 
 ApplicationWindow {
   title: "Test"
