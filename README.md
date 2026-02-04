@@ -25,9 +25,6 @@ Most of the examples consist of a Julia script and a .qml file in the qml subfol
 The qml file defines how the GUI looks, the Julia script provides one or more functions
 for the business logic.
 
-### Notes
-- `Makie v0.17.13` is required for plots using that library.
-
 ### Basic examples
 - board  OK
 - canvas OK
