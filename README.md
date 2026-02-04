@@ -25,12 +25,6 @@ Most of the examples consist of a Julia script and a .qml file in the qml subfol
 The qml file defines how the GUI looks, the Julia script provides one or more functions
 for the business logic.
 
-You will find the line:
-```julia
-ENV["QSG_RENDER_LOOP"] = "basic"
-```
-on top of most scripts to disable QML multithreading which is not yet supported by QML 0.9.
-
 ### Notes
 - `Makie v0.17.13` is required for plots using that library.
 

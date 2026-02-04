@@ -1,5 +1,3 @@
-ENV["QSG_RENDER_LOOP"] = "basic"
-
 using QML
 using Observables
 using ColorTypes
@@ -10,12 +8,13 @@ const qmlfile = joinpath(dirname(Base.source_path()), "qml", "canvas_alpha.qml")
 diameter = Observable(0.0)
 alpha = Observable(0.0)
 
+convertbuffer(buffer::Ptr{UInt32}, w, h) = reinterpret(ARGB32, unsafe_wrap(Array, buffer, (w, h)))
+
 # callback to paint circle
-function paint_circle(buffer::Array{UInt32, 1}, width32::Int32, height32::Int32)
+function paint_circle(buffer::Ptr{UInt32}, width32::Int32, height32::Int32)
     width::Int = width32
     height::Int = height32
-    buffer = reshape(buffer, width, height)
-    buffer = reinterpret(ARGB32, buffer)
+    buffer = convertbuffer(buffer, width, height)
 
     center_x = width/2
     center_y = height/2
@@ -33,11 +32,10 @@ function paint_circle(buffer::Array{UInt32, 1}, width32::Int32, height32::Int32)
 end
 
 # callback to paint square
-function paint_square(buffer::Array{UInt32, 1}, width32::Int32, height32::Int32)
+function paint_square(buffer::Ptr{UInt32}, width32::Int32, height32::Int32)
     width::Int = width32
     height::Int = height32
-    buffer = reshape(buffer, width, height)
-    buffer = reinterpret(ARGB32, buffer)
+    buffer = convertbuffer(buffer, width, height)
 
     center_x = width/2
     center_y = height/2
@@ -56,7 +54,7 @@ end
 
 loadqml(qmlfile,
      parameters=JuliaPropertyMap("diameter" => diameter, "alpha" => alpha),
-     circle_cfunction = CxxWrap.@safe_cfunction(paint_circle, Cvoid, (Array{UInt32,1}, Int32, Int32)),
-     square_cfunction = CxxWrap.@safe_cfunction(paint_square, Cvoid, (Array{UInt32,1}, Int32, Int32)))
+     circle_cfunction = CxxWrap.@safe_cfunction(paint_circle, Cvoid, (Ptr{UInt32}, Int32, Int32)),
+     square_cfunction = CxxWrap.@safe_cfunction(paint_square, Cvoid, (Ptr{UInt32}, Int32, Int32)))
 
 exec()

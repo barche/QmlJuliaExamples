@@ -1,0 +1,10 @@
+name = "QmlJuliaExamples"
+uuid = "50605b44-0bd5-4e98-b041-c1b96c1cf8c4"
+version = "0.1.0"
+authors = ["Bart Janssens <bart@bartjanssens.org>"]
+
+[deps]
+Scratch = "6c6a2e73-6563-6170-7368-637461726353"
+
+[compat]
+Scratch = "1.2.1"

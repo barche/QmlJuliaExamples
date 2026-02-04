@@ -1,6 +1,3 @@
-# MUST disable threading in Qt
-ENV["QSG_RENDER_LOOP"] = "basic"
-
 using CxxWrap
 using QML
 using ModernGL, GeometryBasics
@@ -22,7 +19,7 @@ function render()
   glBindVertexArray(vao[])
 
   # The vertices of our triangle
-  vertices = Point2f0[(c.cx, c.cy) for c in corners] # note Float32
+  vertices = Point2f[(c.cx, c.cy) for c in corners] # note Float32
 
   # Create the Vertex Buffer Object (VBO)
   vbo = Ref(GLuint(0))   # initial value is irrelevant, just allocate space
@@ -44,7 +41,7 @@ function render()
 
   # The fragment shader
   fragment_source = """
-  # version 150
+  #version 150
 
   out vec4 outColor;
 
@@ -54,11 +51,9 @@ function render()
   }
   """
 
-  srctoptr(s) = convert(Ptr{UInt8}, pointer([convert(Ptr{GLchar}, pointer(s))]))
-
   # Compile the vertex shader
   vertex_shader = glCreateShader(GL_VERTEX_SHADER)
-  glShaderSource(vertex_shader, 1, srctoptr(vertex_source), C_NULL)  # nicer thanks to GLAbstraction
+  glShaderSource(vertex_shader, 1, [vertex_source], GLint[length(vertex_source)])
   glCompileShader(vertex_shader)
   # Check that it compiled correctly
   status = Ref(GLint(0))
@@ -71,7 +66,7 @@ function render()
 
   # Compile the fragment shader
   fragment_shader = glCreateShader(GL_FRAGMENT_SHADER)
-  glShaderSource(fragment_shader, 1, srctoptr(fragment_source), C_NULL)
+  glShaderSource(fragment_shader, 1, [fragment_source], GLint[length(fragment_source)])
   glCompileShader(fragment_shader)
   # Check that it compiled correctly
   status = Ref(GLint(0))

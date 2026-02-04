@@ -16,5 +16,8 @@ ApplicationWindow {
     Component.onCompleted: {
       Julia.pushdisplay(jdisp)
     }
+
+    onWidthChanged: Julia.setsize(width, height)
+    onHeightChanged: Julia.setsize(width, height)
   }
 }

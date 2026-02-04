@@ -1,5 +1,3 @@
-ENV["QSG_RENDER_LOOP"] = "basic"
-
 using Test
 using QML
 using Images
@@ -39,15 +37,15 @@ function startsimulation()
     end
 end
 
-function showlatest(buffer::Array{UInt32, 1}, width32::Int32, height32::Int32)
-  buffer = reshape(buffer, size(img))
+function showlatest(buffer::Ptr{UInt32}, width32::Int32, height32::Int32)
+  buffer = unsafe_wrap(Array, buffer, (width32, height32))
   buffer = reinterpret(ARGB32, buffer)
   buffer .= img
   return
 end
 
 showlatest_cfunction = CxxWrap.@safe_cfunction(showlatest, Cvoid, 
-                                               (Array{UInt32,1}, Int32, Int32))
+                                               (Ptr{UInt32}, Int32, Int32))
 
 qmlfile = joinpath(dirname(@__FILE__), "qml", "threadedcanvas.qml")
 loadqml(qmlfile; showlatest = showlatest_cfunction)

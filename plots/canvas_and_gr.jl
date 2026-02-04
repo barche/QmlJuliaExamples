@@ -1,5 +1,3 @@
-ENV["QSG_RENDER_LOOP"] = "basic" # multithreading in Qt must be off
-
 using QML
 using Observables
 using Plots
@@ -19,8 +17,8 @@ frequency = Observable(-1.0)
 diameter = Observable(-1.0)
 description_text = Observable("")
 
-function paint_sin_plot(p::CxxPtr{QPainter}, item::CxxPtr{JuliaPaintedItem})  
-    ENV["GKS_CONID"] = split(repr(p.cpp_object), "@")[2]
+function paint_sin_plot(p::CxxPtr{QPainter}, item::CxxPtr{JuliaPaintedItem})
+    ENV["GKS_CONID"] = repr(reinterpret(UInt64, p.cpp_object))
     dev = device(p[])[]
     r = effectiveDevicePixelRatio(window(item[])[])
     w, h = width(dev) / r, height(dev) / r
@@ -37,7 +35,7 @@ function paint_sin_plot(p::CxxPtr{QPainter}, item::CxxPtr{JuliaPaintedItem})
 end
 
 function paint_cos_plot(p::CxxPtr{QPainter}, item::CxxPtr{JuliaPaintedItem})  
-    ENV["GKS_CONID"] = split(repr(p.cpp_object), "@")[2]
+    ENV["GKS_CONID"] = repr(reinterpret(UInt64, p.cpp_object))
     dev = device(p[])[]
     r = effectiveDevicePixelRatio(window(item[])[])
     w, h = width(dev) / r, height(dev) / r
@@ -52,12 +50,10 @@ end
 
 ################## canvas ########################    
 # fix callback arguments (TODO: macro this?)
-function paint_canvas(buffer::Array{UInt32, 1},
+function paint_canvas(buffer::Ptr{UInt32},
                       width32::Int32,
                       height32::Int32)
-    width::Int = width32
-    height::Int = height32
-    buffer = reshape(buffer, width, height)
+    buffer = unsafe_wrap(Array, buffer, (width32, height32))
     buffer = reinterpret(ARGB32, buffer)
     paint_circle(buffer)
 end
@@ -123,7 +119,7 @@ loadqml(qmlfile,
      paint_cos_plot_wrapped = @safe_cfunction(paint_cos_plot, Cvoid,
                                               (CxxPtr{QPainter}, CxxPtr{JuliaPaintedItem})),
      paint_canvas_wrapped = @safe_cfunction(paint_canvas, Cvoid,
-                                            (Array{UInt32,1}, Int32, Int32))
+                                            (Ptr{UInt32}, Int32, Int32))
      )
 
 onany(amplitude, frequency, invert_sin) do a, f, i

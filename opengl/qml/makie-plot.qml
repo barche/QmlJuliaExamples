@@ -98,18 +98,18 @@ ApplicationWindow {
 
         // Set initial point positions
         Component.onCompleted: {
-          x = xposscreen/Screen.devicePixelRatio - pointMarker.width/2;
-          y = appRoot.height - yposscreen/Screen.devicePixelRatio - pointMarker.height/2;
+          x = xposscreen - pointMarker.width/2;
+          y = appRoot.height - yposscreen - pointMarker.height/2;
         }
 
         // Set the x and y position when the points are dragged around
         onXChanged: {
-          xposscreen = (x + width/2)*Screen.devicePixelRatio
+          xposscreen = (x + width/2)
           xField.text = xpos.toFixed(3)
           viewport.update();
         }
         onYChanged: {
-          yposscreen = Screen.devicePixelRatio*(appRoot.height - (y + height/2))
+          yposscreen = (appRoot.height - (y + height/2))
           yField.text = ypos.toFixed(3)
           viewport.update();
         }
@@ -118,8 +118,8 @@ ApplicationWindow {
         Connections {
           target: updates
           function onNeedupdateChanged() {
-            x = xposscreen/Screen.devicePixelRatio - pointMarker.width/2;
-            y = appRoot.height - yposscreen/Screen.devicePixelRatio - pointMarker.height/2;
+            x = xposscreen - pointMarker.width/2;
+            y = appRoot.height - yposscreen - pointMarker.height/2;
           }
         }
       }

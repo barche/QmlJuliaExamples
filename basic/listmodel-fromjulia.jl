@@ -20,17 +20,8 @@ ApplicationWindow {
           id: sliderControl
           from: 0.0
           to: 2.0
-          onValueChanged: {
-            sliderval = value;
-          }
-
-          Component.onCompleted: {
-            value = sliderval;
-          }
-          Connections {
-		        target: slider
-		        function onDataChanged() { sliderControl.value = sliderval; }
-	        }
+          value: sliderval
+          onMoved: sliderval = value
         }
       }
     }

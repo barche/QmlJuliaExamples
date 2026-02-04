@@ -1,7 +1,7 @@
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
-import jlqml
+import Makie
 
 ApplicationWindow {
   title: "My Application"
@@ -24,13 +24,11 @@ ApplicationWindow {
 
       Slider {
         id: angle
-        value: 0.0
+        value: cat.angle
         from: 0.0
         to: 360.0
-        onValueChanged: {
-          cat.angle = value;
-          viewport.update();
-        }
+        onMoved: cat.angle = value
+        onValueChanged: viewport.update()
       }
     }
 
@@ -42,11 +40,11 @@ ApplicationWindow {
       }
     }
 
-    MakieViewport {
+    MakieArea {
       id: viewport
       Layout.fillWidth: true
       Layout.fillHeight: true
-      renderFunction: render_callback
+      scene: cat.mesh
     }
   }
 

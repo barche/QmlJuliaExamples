@@ -1,10 +1,8 @@
-# MUST disable threading in Qt
-ENV["QSG_RENDER_LOOP"] = "basic"
-
 using CxxWrap
 using Observables
 using QML
 using GLMakie
+using Makie
 using QMLMakie
 using GeometryBasics
 

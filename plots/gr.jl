@@ -1,4 +1,3 @@
-ENV["QSG_RENDER_LOOP"] = "basic" # multithreading in Qt must be off
 using CxxWrap # for safe_cfunction
 using QML
 using Observables
@@ -16,7 +15,7 @@ A = Observable(1.0)
 
 # Arguments here need to be the "reference types", hence the "Ref" suffix
 function paint(p::CxxPtr{QPainter}, item::CxxPtr{JuliaPaintedItem})  
-  ENV["GKS_CONID"] = split(repr(p.cpp_object), "@")[2]
+  ENV["GKS_CONID"] = repr(reinterpret(UInt64, p.cpp_object))
 
   dev = device(p[])[]
   r = effectiveDevicePixelRatio(window(item[])[])

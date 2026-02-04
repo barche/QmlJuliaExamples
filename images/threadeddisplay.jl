@@ -1,4 +1,3 @@
-ENV["QSG_RENDER_LOOP"] = "basic"
 using Test
 using QML
 using Images

@@ -1,0 +1,21 @@
+[deps]
+CxxWrap = "1f15a43c-97ca-5a2a-ae31-89f07a497df4"
+Downloads = "f43a241f-c20a-4ad4-852c-f6b1247861c6"
+Observables = "510215fc-4207-5dde-b226-833fc4488ee2"
+ProgressMeter = "92933f4c-e287-5a05-a399-4b506db050ca"
+QML = "2db162a6-7e43-52c3-8d84-290c1c42d82a"
+QmlJuliaExamples = "50605b44-0bd5-4e98-b041-c1b96c1cf8c4"
+Qt6Quick3D_jll = "6dc365b9-5e99-58d6-8812-efce7277b6ef"
+Qt6Wayland_jll = "e99dba38-086e-5de3-a5b1-6e4c66e897c3"
+jlqml_jll = "6b5019fb-a83d-5b4e-a9f7-678a36c28df7"
+unzip_jll = "88f77b66-78eb-5ed0-bc16-ebba0796830d"
+
+[sources]
+CxxWrap = {path = "../../CxxWrap"}
+QML = {path = "../../QML"}
+QmlJuliaExamples = {path = ".."}
+jlqml_jll = {path = "../../pkgdev/jlqml_jll"}
+
+[compat]
+QML = "0.12"
+julia = "1.11"

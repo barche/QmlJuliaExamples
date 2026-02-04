@@ -1,5 +1,3 @@
-ENV["QSG_RENDER_LOOP"] = "basic"
-
 using QML
 using Observables
 using ColorTypes
@@ -11,14 +9,11 @@ diameter = Observable(-1.0)
 
 
 # fix callback arguments (TODO: macro this?)
-function paint_circle(buffer::Array{UInt32, 1},
+function paint_circle(buffer::Ptr{UInt32},
                       width32::Int32,
                       height32::Int32)
-    width::Int = width32
-    height::Int = height32
-    buffer = reshape(buffer, width, height)
-    buffer = reinterpret(ARGB32, buffer)
-    paint_circle(buffer)
+    array = unsafe_wrap(Array, buffer, (width32, height32))
+    paint_circle(reinterpret(ARGB32, array))
 end
 
 # callback to paint circle
@@ -40,9 +35,10 @@ function paint_circle(buffer)
     return
 end
 
+safe_paint_func = CxxWrap.@safe_cfunction(paint_circle, Cvoid, (Ptr{UInt32}, Int32, Int32))
+
 loadqml(qmlfile,
      parameters=JuliaPropertyMap("diameter" => diameter),
-     paint_cfunction = CxxWrap.@safe_cfunction(paint_circle, Cvoid, 
-                                               (Array{UInt32,1}, Int32, Int32)))
+     paint_cfunction = safe_paint_func)
 
 exec()

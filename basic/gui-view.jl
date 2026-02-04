@@ -2,6 +2,9 @@ using Test
 using QML
 using Observables
 
+# absolute path in case working dir is overridden
+qml_file = joinpath(dirname(@__FILE__), "qml", "gui-view.qml")
+
 hello() = "Hello from Julia"
 
 counter = 0
@@ -35,15 +38,17 @@ end
 
 @qmlfunction counter_slot hello increment_counter uppercase string
 
-# absolute path in case working dir is overridden
-qml_file = joinpath(dirname(@__FILE__), "qml", "gui.qml")
+qview = init_qquickview()
 
-# Load the QML file
-engine = loadqml(qml_file, guiproperties = JuliaPropertyMap("timer" => QTimer(), "oldcounter" => oldcounter, "bg_counter" => bg_counter_slow))
-# watchqml(engine, qml_file)
+engine = QML.engine(qview)
+ctx = root_context(engine)
+set_context_property(ctx, "guiproperties", JuliaPropertyMap("timer" => QTimer(), "oldcounter" => oldcounter, "bg_counter" => bg_counter_slow))
 
-# Run the application
+set_source(qview, QUrlFromLocalFile(qml_file))
+watchqml(qview, qml_file)
+
+QML.show(qview)
 exec()
 
-println("Button was pressed $counter times")
-println("Background counter now at $(bg_counter[])")
+#println("Button was pressed $counter times")
+#println("Background counter now at $(bg_counter[])")

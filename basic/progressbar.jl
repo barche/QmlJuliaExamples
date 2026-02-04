@@ -119,7 +119,7 @@ on(progress) do p
   if p >= 1.0
     QML.stop(timer)
     meantime = mean(timings[2:end] .- timings[1:end-1]) / 1e6
-    println("Finished simulation after $(ticks[]) ticks with average time of $meantime ms between ticks")
+    println("Finished simulation $(simulation_types[selectedsimtype[]][1]) after $(ticks[]) ticks with average time of $meantime ms between ticks")
   end
 end
 

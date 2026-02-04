@@ -1,10 +1,9 @@
-ENV["QSG_RENDER_LOOP"] = "basic"
-
 using CxxWrap
 using QML
 using GLMakie
 using QMLMakie
 using Observables
+using QMLMakie
 
 set_theme!(theme_black())
 

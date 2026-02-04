@@ -1,9 +1,7 @@
 using Test
 using QML
 using Plots
-
-# No Python gui:
-ENV["MPLBACKEND"] = "Agg"
+Plots.GR.inline()
 
 function init_backend(width::Float64, height::Float64, bestr::AbstractString)
   if width < 5 || height < 5
@@ -13,7 +11,8 @@ function init_backend(width::Float64, height::Float64, bestr::AbstractString)
   be = Symbol(lowercase(bestr))
   if be == :gr
     gr(size=(Int64(round(width)),Int64(round(height))))
-    Plots.GR.inline()
+  elseif be == :plotly
+    plotly(size=(Int64(round(width)),Int64(round(height))))
   end
 
   return
@@ -27,9 +26,8 @@ function plotsin(d::JuliaDisplay, amplitude::Float64, frequency::Float64)
   x = 0:π/100:π
   f = amplitude*sin.(frequency.*x)
 
-  plt = plot(x,f,ylims=(-5,5),show=false)
+  plt = plot(x,f,ylims=(-5,5),show=false);
   display(d, plt)
-  #close()
 
   return
 end
