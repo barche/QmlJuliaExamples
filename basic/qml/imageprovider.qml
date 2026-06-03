@@ -1,20 +1,148 @@
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
+import QtQuick.Window
 
 ApplicationWindow {
   visible: true
-  width: 640
-  height: 480
+  width: 900
+  height: 700
+  title: "Mandelbrot Viewer"
 
-  Image {
-    id: image
+  ColumnLayout {
     anchors.fill: parent
-    sourceSize.width: width
-    sourceSize.height: height
-    asynchronous: true
-    retainWhileLoading: true
-    source: "image://mandelbrot/" + mandelbrot.version
-    cache: false
+
+    // -------------------- TOOLBAR --------------------
+    ToolBar {
+      Layout.fillWidth: true
+
+      RowLayout {
+        spacing: 12
+
+        Label {
+          text: "Zoom:"
+        }
+
+        TextField {
+          text: mandelbrot.zoom
+          onEditingFinished: mandelbrot.zoom = parseFloat(text)
+
+          validator: DoubleValidator {
+          }
+
+        }
+
+        Label {
+          text: "Center X:"
+        }
+
+        TextField {
+          text: mandelbrot.centerX.toFixed(6)
+          onEditingFinished: mandelbrot.centerX = parseFloat(text)
+
+          validator: DoubleValidator {
+          }
+
+        }
+
+        Label {
+          text: "Center Y:"
+        }
+
+        TextField {
+          text: mandelbrot.centerY.toFixed(6)
+          onEditingFinished: mandelbrot.centerY = parseFloat(text)
+
+          validator: DoubleValidator {
+          }
+
+        }
+
+        Label {
+          text: "Palette:"
+        }
+
+        ComboBox {
+          Layout.alignment: Qt.AlignCenter
+          currentIndex: parameters.selectedSimType-1
+          textRole: "display"
+          valueRole: "display"
+          model: mandelbrot.palettes
+          onCurrentIndexChanged: { if (currentIndex >= 0) { parameters.selectedSimType = currentIndex+1; }}
+        }
+
+        Button {
+          text: "Reset"
+          onClicked: {
+            mandelbrot.zoom = 1;
+            mandelbrot.centerX = -0.5;
+            mandelbrot.centerY = 0;
+          }
+        }
+
+      }
+
+    }
+
+    // -------------------- IMAGE AREA --------------------
+    Item {
+      Layout.fillWidth: true
+      Layout.fillHeight: true
+      clip: true
+
+      Image {
+        id: image
+
+        anchors.fill: parent
+        sourceSize.width: width
+        sourceSize.height: height
+        asynchronous: true
+        retainWhileLoading: true
+        source: "image://mandelbrot/" + mandelbrot.version
+        cache: false
+      }
+
+      PinchHandler {
+        id: pinch
+        target: null
+
+        onScaleChanged: (delta) => {
+          mandelbrot.zoom *= delta;
+        }
+      }
+
+      WheelHandler {
+        id: touchPadDrag
+        target: null               // receive events even if Item doesn’t move
+        acceptedDevices: PointerDevice.TouchPad
+
+        onWheel: (event) => {
+          mandelbrot.centerX -= event.pixelDelta.x / (width * mandelbrot.zoom) * Screen.devicePixelRatio;
+          mandelbrot.centerY -= event.pixelDelta.y / (height * mandelbrot.zoom) * Screen.devicePixelRatio;
+          event.accepted = true
+        }
+      }
+
+      WheelHandler {
+        id: wheel
+        target: null
+        acceptedDevices: PointerDevice.Mouse
+
+        onWheel: (event) => {
+          const factor = event.angleDelta.y > 0 ? 1.25 : 0.8;
+          mandelbrot.zoom *= factor;
+          event.accepted = true
+        }
+      }
+
+      // DragHandler {
+      //   target: null
+
+      //   onActiveTranslationChanged: (dx, dy) => {
+      //     mandelbrot.centerX -= dx / (width * mandelbrot.zoom) * Screen.devicePixelRatio;
+      //     mandelbrot.centerY -= dy / (height * mandelbrot.zoom) * Screen.devicePixelRatio;
+      //   }
+      // }
+    }
   }
 }

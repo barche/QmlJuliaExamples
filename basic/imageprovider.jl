@@ -2,10 +2,12 @@ using Observables
 using QML
 using Base.Threads
 
+centerX = Observable(-0.75)
+centerY = Observable(0.0)
+zoom = Observable(1.0)
+
 """
     make_qimage_rgb888_mandelbrot(width::Integer, height::Integer;
-                                  center::Tuple{Real,Real}=(-0.75, 0.0),
-                                  zoom::Real=1.0,
                                   maxiter::Integer=1000,
                                   supersample::Integer=1,
                                   threaded::Bool=true,
@@ -15,8 +17,6 @@ using Base.Threads
 Generate a smoothly-colored Mandelbrot fractal as a **row-major** RGB888 buffer
 suitable for `QImage(data, w, h, bytesPerLine, QImage::Format_RGB888)`.
 
-- `center`: (cx, cy) in the complex plane
-- `zoom`:   1.0 shows a wide view; larger values zoom in
 - `maxiter`: iteration limit (higher = more detail, more work)
 - `supersample`: N×N supersampling per pixel (1 = off, 2 or 3 looks nicer, slower)
 - `threaded`: use `Threads.@threads` across scanlines
@@ -31,9 +31,7 @@ Notes:
   to see multi-threading speedups.
 - Start Julia with multiple threads, e.g. `julia -t auto` or set `JULIA_NUM_THREADS`.
 """
-function make_qimage_rgb888_mandelbrot(width::Integer, height::Integer;
-  center::Tuple{Real,Real}=(-0.75, 0.0),
-  zoom::Real=1.0,
+function make_qimage_rgb888_mandelbrot(width::Integer, height::Integer, initialnextversion;
   maxiter::Integer=1000,
   supersample::Integer=1,
   threaded::Bool=false,
@@ -50,9 +48,9 @@ function make_qimage_rgb888_mandelbrot(width::Integer, height::Integer;
 
   # View parameters: maintain aspect ratio
   # Base horizontal span ~3.5 (typical Mandelbrot framing), then divide by zoom
-  span_x = 3.5 / zoom
+  span_x = 3.5 / zoom[]
   span_y = span_x * (h / w)
-  cx0, cy0 = float(center[1]), float(center[2])
+  cx0, cy0 = float(centerX[]), float(centerY[])
   x_min = cx0 - span_x / 2
   y_min = cy0 - span_y / 2
   dx = span_x / w
@@ -100,13 +98,19 @@ function make_qimage_rgb888_mandelbrot(width::Integer, height::Integer;
   rowrange = 0:h-1
   if threaded
     @threads for y in rowrange
+      if nextversion[] > initialnextversion
+        break
+      end
       _render_row!(buf, y, w, bytes_per_line, x_min, y_min, dx, dy, ss,
-        mandel_smooth, color_from_t)
+      mandel_smooth, color_from_t)
     end
   else
     for y in rowrange
+      if nextversion[] > initialnextversion
+        break
+      end
       _render_row!(buf, y, w, bytes_per_line, x_min, y_min, dx, dy, ss,
-        mandel_smooth, color_from_t)
+      mandel_smooth, color_from_t)
     end
   end
 
@@ -245,26 +249,27 @@ Return a `Channel` that yields progressive RGB888 frames:
 - Use `iters` to also refine with higher iteration counts per pass.
 """
 function progressive_mandelbrot(width, height, startversion, initialnextversion;
-  lod_scales=[1 // 8, 1 // 4, 1 // 2, 1],
-  iters=[200, 600, 1200, 2400],
+  lod_scales=[1 // 16, 1 // 8, 1 // 4, 1],
+  iters=[100, 600, 1200, 2400],
   supersample::Int=1,
   threaded::Bool=true)
 
   n = max(length(lod_scales), length(iters))
   for k in 1:n
-    if nextversion[] > initialnextversion
-      # Abort if a new render sequence was started before this one is done
-      break
-    end
     s = k <= length(lod_scales) ? float(lod_scales[k]) : 1.0
     w_k = max(1, round(Int, width * s))
     h_k = max(1, round(Int, height * s))
     maxiter_k = k <= length(iters) ? iters[k] : iters[end]
 
-    buf, stride = make_qimage_rgb888_mandelbrot(w_k, h_k;
+    buf, stride = make_qimage_rgb888_mandelbrot(w_k, h_k, initialnextversion;
       maxiter=maxiter_k,
       supersample=supersample,
       threaded=threaded)
+
+    if nextversion[] > initialnextversion
+      # Abort if a new render sequence was started before this one is done
+      break
+    end
 
     newver = startversion+k-1
     put!(mandelchannel, (buf, stride, w_k, h_k, newver))
@@ -331,12 +336,24 @@ on(imagesize) do s
   start_production(s...)
 end
 
+on(zoom) do s
+  start_production(imagesize[]...)
+end
+
+on(centerX) do s
+  start_production(imagesize[]...)
+end
+
+on(centerY) do s
+  start_production(imagesize[]...)
+end
+
 imageprovider = ImageProvider(QML.Image, image_callback)
 engine = init_qmlapplicationengine()
 addImageProvider(engine, "mandelbrot", imageprovider)
 
 qmlfile = joinpath(dirname(@__FILE__), "qml", "imageprovider.qml")
-loadqml(engine, qmlfile; mandelbrot=JuliaPropertyMap("version"=>version))
+loadqml(engine, qmlfile; mandelbrot=JuliaPropertyMap("version"=>version, "zoom"=>zoom, "centerX"=>centerX, "centerY"=>centerY))
 exec()
 
 
