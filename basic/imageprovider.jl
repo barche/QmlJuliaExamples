@@ -2,9 +2,12 @@ using Observables
 using QML
 using Base.Threads
 
+const palettes = ["magma", "inferno", "viridis", "turbo"]
+
 centerX = Observable(-0.75)
 centerY = Observable(0.0)
 zoom = Observable(1.0)
+palette = Observable("magma")
 
 """
     make_qimage_rgb888_mandelbrot(width::Integer, height::Integer;
@@ -35,7 +38,7 @@ function make_qimage_rgb888_mandelbrot(width::Integer, height::Integer, initialn
   maxiter::Integer=1000,
   supersample::Integer=1,
   threaded::Bool=false,
-  palette::Symbol=:magma)
+  palette::Symbol=Symbol(palette[]))
 
   w = Int(width)
   h = Int(height)
@@ -348,12 +351,23 @@ on(centerY) do s
   start_production(imagesize[]...)
 end
 
+on(palette) do p
+  start_production(imagesize[]...)
+end
+
 imageprovider = ImageProvider(QML.Image, image_callback)
 engine = init_qmlapplicationengine()
 addImageProvider(engine, "mandelbrot", imageprovider)
 
 qmlfile = joinpath(dirname(@__FILE__), "qml", "imageprovider.qml")
-loadqml(engine, qmlfile; mandelbrot=JuliaPropertyMap("version"=>version, "zoom"=>zoom, "centerX"=>centerX, "centerY"=>centerY))
+loadqml(engine, qmlfile; mandelbrot=JuliaPropertyMap(
+  "version"=>version,
+  "zoom"=>zoom,
+  "centerX"=>centerX,
+  "centerY"=>centerY,
+  "palette"=>palette,
+  "palettes"=>JuliaItemModel(palettes))
+)
 exec()
 
 

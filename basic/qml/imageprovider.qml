@@ -28,6 +28,7 @@ ApplicationWindow {
           onEditingFinished: mandelbrot.zoom = parseFloat(text)
 
           validator: DoubleValidator {
+            locale: "C"
           }
 
         }
@@ -37,10 +38,13 @@ ApplicationWindow {
         }
 
         TextField {
-          text: mandelbrot.centerX.toFixed(6)
-          onEditingFinished: mandelbrot.centerX = parseFloat(text)
+          text: mandelbrot.centerX
+          onEditingFinished: {
+            mandelbrot.centerX = parseFloat(text);
+          }
 
           validator: DoubleValidator {
+            locale: "C"
           }
 
         }
@@ -50,10 +54,11 @@ ApplicationWindow {
         }
 
         TextField {
-          text: mandelbrot.centerY.toFixed(6)
+          text: mandelbrot.centerY
           onEditingFinished: mandelbrot.centerY = parseFloat(text)
 
           validator: DoubleValidator {
+            locale: "C"
           }
 
         }
@@ -64,11 +69,11 @@ ApplicationWindow {
 
         ComboBox {
           Layout.alignment: Qt.AlignCenter
-          currentIndex: parameters.selectedSimType-1
           textRole: "display"
           valueRole: "display"
           model: mandelbrot.palettes
-          onCurrentIndexChanged: { if (currentIndex >= 0) { parameters.selectedSimType = currentIndex+1; }}
+          currentValue: "magma"
+          onActivated: mandelbrot.palette = currentValue
         }
 
         Button {
@@ -135,14 +140,14 @@ ApplicationWindow {
         }
       }
 
-      // DragHandler {
-      //   target: null
+      DragHandler {
+        target: null
 
-      //   onActiveTranslationChanged: (dx, dy) => {
-      //     mandelbrot.centerX -= dx / (width * mandelbrot.zoom) * Screen.devicePixelRatio;
-      //     mandelbrot.centerY -= dy / (height * mandelbrot.zoom) * Screen.devicePixelRatio;
-      //   }
-      // }
+        onActiveTranslationChanged: (delta) => {
+          mandelbrot.centerX -= delta.x / (width * mandelbrot.zoom) * Screen.devicePixelRatio;
+          mandelbrot.centerY -= delta.y / (height * mandelbrot.zoom) * Screen.devicePixelRatio;
+        }
+      }
     }
   }
 }
