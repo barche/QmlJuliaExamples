@@ -118,24 +118,18 @@ ApplicationWindow {
 
       WheelHandler {
         id: touchPadDrag
-        target: null               // receive events even if Item doesn’t move
-        acceptedDevices: PointerDevice.TouchPad
-
-        onWheel: (event) => {
-          mandelbrot.centerX -= event.pixelDelta.x / (width * mandelbrot.zoom) * Screen.devicePixelRatio;
-          mandelbrot.centerY -= event.pixelDelta.y / (height * mandelbrot.zoom) * Screen.devicePixelRatio;
-          event.accepted = true
-        }
-      }
-
-      WheelHandler {
-        id: wheel
         target: null
-        acceptedDevices: PointerDevice.Mouse
+        acceptedDevices: PointerDevice.TouchPad | PointerDevice.Mouse
 
         onWheel: (event) => {
-          const factor = event.angleDelta.y > 0 ? 1.25 : 0.8;
-          mandelbrot.zoom *= factor;
+          if(event.phase != Qt.NoScrollPhase) // True for touchpads, so two-finger pan instead of zoom
+          {
+            mandelbrot.centerX -= event.pixelDelta.x / (width * mandelbrot.zoom) * Screen.devicePixelRatio;
+            mandelbrot.centerY -= event.pixelDelta.y / (height * mandelbrot.zoom) * Screen.devicePixelRatio;
+          } else { // Real mouse wheel, so zoom
+            const factor = event.angleDelta.y > 0 ? 1.25 : 0.8;
+            mandelbrot.zoom *= factor;
+          }
           event.accepted = true
         }
       }
