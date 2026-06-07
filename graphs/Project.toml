@@ -6,5 +6,5 @@ jlqml_jll = "6b5019fb-a83d-5b4e-a9f7-678a36c28df7"
 
 [compat]
 CxxWrap = "0.17"
-QML = "0.12"
+QML = "0.13"
 julia = "1.6"

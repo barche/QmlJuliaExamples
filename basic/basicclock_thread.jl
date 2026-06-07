@@ -1,16 +1,26 @@
 using QML
 using Observables
 using Dates
+using Base.Threads
 
 gettime() = Dates.format(now(), "HH:MM:SS")
 const time = Observable(gettime())
+const running = Observable(true)
 qml_file = joinpath(dirname(@__FILE__), "qml", "basicclock.qml")
 
 # Load the QML file, setting a context property named clock containing the time
 engine = loadqml(qml_file, clock = JuliaPropertyMap("time" => time))
 
-# Start a 1 second QTimer that updates the Observable
-QTimer(() -> time[] = gettime(), 1000)
+function clock()
+  while running[]
+    time[] = gettime()
+    # regular sleep never wakes up the Julia task again
+    Libc.systemsleep(1)
+  end
+end
+
+Threads.@spawn clock()
 
 # Run the application
 exec()
+running[] = false
