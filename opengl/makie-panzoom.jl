@@ -3,7 +3,6 @@ using QML
 using GLMakie
 using QMLMakie
 using Observables
-using QMLMakie
 
 set_theme!(theme_black())
 
@@ -16,7 +15,7 @@ t = 0:0.01:10
 y = sin.(t) .+ 0.1 * randn(length(t))
 
 # Makie Figure and Axis, set initial limits by converting to tuples
-fig = Figure(resolution = (700, 300));
+fig = Figure(size = (700, 300));
 ax = Axis(fig[1, 1], xlabel="Time", ylabel="Value", title="Pan/Zoom Demo",
           limits = (tuple(xlims[]...), tuple(ylims[]...)));
 lines!(ax, t, y, color=:dodgerblue);
@@ -32,8 +31,6 @@ end
 function render_callback(screen)
     display(screen, figscene)
 end
-
-QML.setGraphicsApi(QML.OpenGL)
 
 params = JuliaPropertyMap("xlims" => xlims, "ylims" => ylims)
 @qmlfunction update_axes

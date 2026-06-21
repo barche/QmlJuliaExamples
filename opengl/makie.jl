@@ -19,8 +19,6 @@ on(catangle) do θ
   lastrot[] = θ
 end
 
-QML.setGraphicsApi(QML.OpenGL)
-
 loadqml(joinpath(dirname(@__FILE__), "qml", "makie.qml"),
   cat = JuliaPropertyMap(
     "mesh" => cat,

@@ -40,7 +40,7 @@ qml_file = joinpath(dirname(@__FILE__), "qml", "gui.qml")
 
 # Load the QML file
 engine = loadqml(qml_file, guiproperties = JuliaPropertyMap("timer" => QTimer(), "oldcounter" => oldcounter, "bg_counter" => bg_counter_slow))
-# watchqml(engine, qml_file)
+watchqml(engine, qml_file)
 
 # Run the application
 exec()

@@ -1,6 +1,7 @@
 using QML
 
 function singlefile(uri)
+  @show uri
   uri_s = QString(uri)
   if isempty(uri_s)
     println("multiple files were selected")

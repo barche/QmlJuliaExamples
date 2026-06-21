@@ -75,8 +75,6 @@ function render_function(screen)
   return
 end
 
-QML.setGraphicsApi(QML.OpenGL)
-
 loadqml(joinpath(dirname(@__FILE__), "qml", "makie-plot.qml"),
   positionModel = positionmodel,
   updates = JuliaPropertyMap("needupdate" => needupdate),

@@ -300,7 +300,7 @@ Window {
         id: fileDialog
         title: "Please choose a file"
         fileMode: FileDialog.OpenFile
-        currentFolder: "file://" + Julia.assetdir()
+        currentFolder: Julia.asseturi()
         onAccepted: importUrl = selectedFile
         nameFilters: ["Wavefront (*.obj)", "All files (*)"]
     }

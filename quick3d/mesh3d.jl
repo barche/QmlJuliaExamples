@@ -14,6 +14,8 @@ function assetdir()
   return path
 end
 
+asseturi() = string(QUrlFromLocalFile(assetdir()))
+
 function download3dfile(uri, zipname)
   if !isfile(zipname)
     pmeter = ProgressUnknown()
@@ -49,7 +51,7 @@ end
 
 download_assets()
 
-@qmlfunction assetdir
+@qmlfunction asseturi
 
 qml_file = joinpath(dirname(@__FILE__), "qml", "mesh3d.qml")
 loadqml(qml_file)
