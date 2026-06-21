@@ -14,5 +14,5 @@ unzip_jll = "88f77b66-78eb-5ed0-bc16-ebba0796830d"
 QmlJuliaExamples = {path = ".."}
 
 [compat]
-QML = "0.13"
+QML = "0.13.1"
 julia = "1.11"
